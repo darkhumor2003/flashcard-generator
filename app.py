@@ -1,15 +1,13 @@
-# app.py
-
 import streamlit as st
 from utils import extract_text_from_pdf
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
-# ✅ Page config
+# Page config
 st.set_page_config(page_title="Flashcard Generator", page_icon="🧠")
 st.title("📚 Flashcard Generator (TinyLlama - Offline)")
 
-# ✅ Load TinyLlama locally
+# Load TinyLlama locally
 @st.cache_resource
 def load_model():
     tokenizer = AutoTokenizer.from_pretrained("TinyLlama/TinyLlama-1.1B-Chat-v1.0")
@@ -23,7 +21,7 @@ def load_model():
 
 tokenizer, model = load_model()
 
-# ✅ Generate flashcards using prompt formatting
+# Generate flashcards using prompt formatting
 def generate_flashcards(text, num=10):
     try:
         # Clean and shorten the content
@@ -66,7 +64,7 @@ Q:"""
     except Exception as e:
         return f"❌ Flashcard generation error: {str(e)}"
 
-# ✅ Streamlit UI
+# Streamlit UI
 uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
 
 if uploaded_file:
